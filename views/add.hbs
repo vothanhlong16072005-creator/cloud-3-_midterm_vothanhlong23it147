@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow border-0">
+            <div class="card-header bg-success text-white py-3">
+                <h5 class="mb-0 fw-bold">Register New Book (Mutation via user_write_23it147)</h5>
+            </div>
+            <div class="card-body p-4">
+                {{#if error}}
+                <div class="alert alert-danger shadow-sm" role="alert">
+                    <strong>Operation Rejected:</strong> {{error}}
+                </div>
+                {{/if}}
+
+                <form action="/add" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Book Code (Mandatory Prefix:
+                            <strong>147-</strong>):</label>
+                        <input type="text" name="bookCode" class="form-control" placeholder="e.g., 147-BK01" required>
+                        <div class="form-text text-muted">Data integrity rule: Must start with the last 3 digits of your
+                            Student ID (147-).</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Book Title:</label>
+                        <input type="text" name="title" class="form-control" placeholder="Enter book title" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Author Name:</label>
+                        <input type="text" name="author" class="form-control" placeholder="Enter author name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Original Price (VND):</label>
+                        <input type="number" name="originalPrice" class="form-control" placeholder="e.g., 100000"
+                            min="0" required>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-success py-2 fw-semibold">Commit Record to Cloud
+                            Database</button>
+                        <a href="/" class="btn btn-outline-secondary">Return to Catalog</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

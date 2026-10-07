@@ -1,0 +1,48 @@
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
+        <h5 class="mb-0 fw-bold">Cloud Book Repository (Read Stream via user_read_23it147)</h5>
+        <span class="badge bg-light text-dark fs-6">Total Records: {{books.length}}</span>
+    </div>
+    <div class="card-body p-4">
+        {{#if message}}
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            {{message}}
+        </div>
+        {{/if}}
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Book Code</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Original Price (VND)</th>
+                        <th scope="col">VAT Rate</th>
+                        <th scope="col">Final Price (VND)</th>
+                        <th scope="col">Verified By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each books}}
+                    <tr>
+                        <td><code>{{this.bookCode}}</code></td>
+                        <td class="fw-semibold">{{this.title}}</td>
+                        <td>{{this.author}}</td>
+                        <td>{{this.originalPrice}}</td>
+                        <td><span class="badge bg-secondary">{{this.vatRate}}%</span></td>
+                        <td class="text-success fw-bold">{{this.finalPrice}}</td>
+                        <td><small class="text-muted">{{this.studentOwner}}</small></td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">
+                            No records detected in cloud database. Click "Register New Book" to insert records.
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

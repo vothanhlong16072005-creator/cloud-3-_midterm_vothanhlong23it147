@@ -1,17 +1,31 @@
-// config/db.js
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const connRead = mongoose.createConnection(process.env.MONGO_URI_READ);
-connRead.on('connected', () => {
-    console.log('[READ POOL] Connected to vothanhlong_23it147 by user_read_23it147');
-});
-connRead.on('error', (err) => console.error('[READ POOL ERROR]', err));
+const options = {
+    tls: true,
+    serverSelectionTimeoutMS: 10000, // Timeout 10s nếu mạng lag
+};
 
-const connWrite = mongoose.createConnection(process.env.MONGO_URI_WRITE);
-connWrite.on('connected', () => {
-    console.log('[WRITE POOL] Connected to vothanhlong_23it147 by user_write_23it147 - Vo Thanh Long 23IT147'); 
+// Create isolated read-only connection pool bound to user_read_23it147
+const connRead = mongoose.createConnection(process.env.MONGO_URI_READ, options);
+
+connRead.on('connected', () => {
+    console.log('[READ POOL] Successfully connected to vothanhlong_23it147 via user_read_23it147');
 });
-connWrite.on('error', (err) => console.error('[WRITE POOL ERROR]', err));
+
+connRead.on('error', (err) => {
+    console.error('[READ POOL ERROR] Connection failure:', err.message || err);
+});
+
+// Create write-authorized connection pool bound to user_write_23it147
+const connWrite = mongoose.createConnection(process.env.MONGO_URI_WRITE, options);
+
+connWrite.on('connected', () => {
+    console.log('[WRITE POOL] Successfully connected to vothanhlong_23it147 via user_write_23it147 - Vo Thanh Long 23IT147');
+});
+
+connWrite.on('error', (err) => {
+    console.error('[WRITE POOL ERROR] Connection failure:', err.message || err);
+});
 
 module.exports = { connRead, connWrite };
